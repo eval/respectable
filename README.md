@@ -2,7 +2,7 @@
 
 Respectable allows you to structure your specs similar to [scenario outlines in Cucumber](https://github.com/cucumber/cucumber/wiki/Scenario-outlines).
 
-![](mel-kim.jpg)
+![](logo.jpg)
 
 So instead of:
 
