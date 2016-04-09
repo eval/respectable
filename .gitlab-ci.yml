@@ -1,0 +1,8 @@
+image: ruby:2.3
+
+spec:
+  tags:
+    - docker
+  script:
+    - bundle install --path vendor --without production --jobs $(nproc) > /dev/null
+    - bin/rspec
