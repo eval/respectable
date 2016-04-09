@@ -5,6 +5,14 @@
     - bundle install --path vendor --without production --jobs $(nproc) > /dev/null
     - bin/rspec
 
-spec20:
+spec2.0:
   image: ruby:2.0
+  <<: *spec
+
+spec2.1:
+  image: ruby:2.1
+  <<: *spec
+
+spec2.3:
+  image: ruby:2.3
   <<: *spec
