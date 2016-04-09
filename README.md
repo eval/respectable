@@ -1,5 +1,7 @@
 # Respectable
 
+[![build status](https://gitlab.com/eval/respectable/badges/master/build.svg)](https://gitlab.com/eval/respectable/commits/master)
+
 Respectable allows you to structure your specs similar to [scenario outlines in Cucumber](https://github.com/cucumber/cucumber/wiki/Scenario-outlines).
 
 ![](logo.jpg)
