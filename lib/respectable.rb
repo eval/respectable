@@ -11,7 +11,7 @@ module Respectable
 
   module Meat
     def each_row(string, &block)
-      string.split(/\n */).grep(/^[^#]/).map do |line|
+      string.split(/\n */).reject {|line| line[/^ *#/] }.map do |line|
         yield(*line.split(/ *(?<!\\)\| */)[1..-1].map do |i|
           i = i.sub(/\\(?=|)/, '') # remove escapes for '|'
           # handle `...`

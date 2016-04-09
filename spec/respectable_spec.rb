@@ -36,8 +36,8 @@ TABLE
   it 'skips lines prefixed with a #' do
     expect {
       each_row(<<-TABLE) do |col1|
-#| Hello world |
- #  | Hello world |
+      #| Hello world |
+      #  | Hello world |
 TABLE
         raise "I was yielded to :("
       end
