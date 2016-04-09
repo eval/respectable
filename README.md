@@ -73,7 +73,7 @@ Or install it yourself as:
 
 ## Usage
 
-Checkout the ![specs](spec/respectable_spec.rb)
+Checkout the [specs](spec/respectable_spec.rb).
 
 ## Development
 
