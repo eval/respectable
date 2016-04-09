@@ -54,9 +54,11 @@ TABLE
   end
 
   it 'evaluates values between `...`' do
+    @a = 2
     each_row(<<-TABLE) do |input, expected|
 | `:symbol` | :symbol |
 | `1`       | 1       |
+| `@a`      | 2       |
 TABLE
 
       expect(input).to eq eval(expected)
