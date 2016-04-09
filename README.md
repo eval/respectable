@@ -2,7 +2,7 @@
 
 Respectable allows you to structure your specs similar to [scenario outlines in Cucumber](https://github.com/cucumber/cucumber/wiki/Scenario-outlines).
 
-![](./mel-kim.jpg)
+![](mel-kim.jpg)
 
 So instead of:
 
@@ -28,7 +28,7 @@ end
 
 ...you throw a bunch of cases at an expectation:
 
-```
+```ruby
 describe '#full_name' do
   it 'concats first and last' do
     each_row(<<-TABLE) do |first, last, expected|
