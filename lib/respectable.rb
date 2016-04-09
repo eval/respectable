@@ -4,7 +4,9 @@ require 'csv'
 module Respectable
   def self.included(base)
     base.extend Meat
-    base.send(:include, Meat)
+    base.class_eval do
+      include Meat
+    end
   end
 
   module Meat
@@ -22,7 +24,7 @@ module Respectable
 end
 
 if defined?(RSpec)
-  RSpec.configure do |config|
-    send(:include, Respectable)
+  ::RSpec.configure do |config|
+    config.include Respectable
   end
 end
