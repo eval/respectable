@@ -74,4 +74,14 @@ TABLE
       expect(col1).to match /col1/
     end
   end
+
+  it 'allows trailing comments' do
+    each_row(<<-TABLE) do |col1, col2|
+      | col1 | # some comment
+      | col1 | # `raise`
+      TABLE
+
+      expect(col2).to be_nil
+    end
+  end
 end

@@ -12,7 +12,11 @@ module Respectable
   module Meat
     def each_row(string, &block)
       string.split(/\n */).reject {|line| line[/^ *#/] }.map do |line|
-        yield(*line.split(/ *(?<!\\)\| */)[1..-1].map do |i|
+        cols = line.split(/ *(?<!\\)\| */)[1..-1]
+        comment_col = cols.size
+        cols.each_with_index {|col, ix| comment_col = ix if col[/^ *#/] }
+        cols = cols[0, comment_col]
+        block.call(*cols.map do |i|
           i = i.sub(/\\(?=|)/, '') # remove escapes for '|'
           # handle `...`
           r = i[/\A`([^`]+)`\z/, 1]
