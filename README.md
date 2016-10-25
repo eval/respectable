@@ -11,19 +11,19 @@ So instead of:
 ```ruby
 describe '#full_name' do
   it 'concats first and last' do
-    expect(build(:user, first: 'Foo', last: 'Bar').full_name).to eq 'Foo Bar'
+    expect(User.new(first: 'Foo', last: 'Bar').full_name).to eq 'Foo Bar'
   end
 
   it 'does smart casing stuff' do
-    expect(build(:user, first: 'Foo', last: 'Van Bar').full_name).to eq 'Foo van Bar'
+    expect(User.new(first: 'Foo', last: 'Van Bar').full_name).to eq 'Foo van Bar'
   end
 
   it 'handles last being nil' do
-    expect(build(:user, first: 'First', last: nil).full_name).to eq 'Foo'
+    expect(User.new(first: 'First', last: nil).full_name).to eq 'Foo'
   end
 
   it 'handles first being nil' do
-    expect(build(:user, first: nil, last: 'Bar').full_name).to eq 'Bar'
+    expect(User.new(first: nil, last: 'Bar').full_name).to eq 'Bar'
   end
 end
 ```
@@ -32,22 +32,66 @@ end
 
 ```ruby
 describe '#full_name' do
-  it 'concats first and last' do
-    each_row(<<-TABLE) do |first, last, expected|
-      #| first | last    | expected    |
-       | Foo   | Bar     | Foo Bar     |
-       | Foo   | Van Bar | Foo van Bar |
-       | Foo   | `nil`   | Foo         |
-       | `nil` | Bar     | Bar         |
-      TABLE
+  specify_each(<<-TABLE) do |first, last, expected|
+    #| first | last    | expected    |
+     | Foo   | Bar     | Foo Bar     |
+     | Foo   | Van Bar | Foo van Bar |
+     | Foo   | `nil`   | Foo         |
+     | `nil` | Bar     | Bar         |
+    TABLE
 
-      expect(build(:user, first: first, last: last).full_name).to eq expected
-    end
+    expect(User.new(first: first, last: last).full_name).to eq expected
   end
 end
 ```
 
 You just got yourself a *table* in your *rspec*! (who told you naming was hard?)
+
+## Details
+
+### Literal values
+
+By default values from the table are passed to the block as stripped strings. For more expressiveness you can use backticks; this allows you to pass literal values (e.g. \`nil\`, \`:some_symbol\`, \`true\`, \`1 + 1\`) to the block.
+
+### Description
+
+For every row in the table an it-block is created. The description of this block will be of the format:  
+`column1-name: "cell-value", column2-name: "cell-value" yields "value of last column"`.  
+So for the full_name-example above the full RSpec-output (using `--format documentation`) is:  
+```
+#full_name
+  first: "Foo", last: "Bar" yields "Foo Bar"
+  first: "Foo", last: "Van Bar" yields "Foo van Bar"
+  first: "Foo", last: "`nil`" yields "Foo"
+  first: "`nil`", last: "Bar" yields "Bar"
+```
+
+You can customize the description by passing a template to `specify_each` in which you can use the block parameters, e.g.:  
+```ruby
+specify_each(<<-TABLE, desc: 'full_name(%{first}, %{last}) => %{expected}') do |first, last, expected|
+```
+
+If you want the standard RSpec-description you can pass `desc: nil` to `specify_each`.
+
+### Comments
+
+Just like in Ruby, you can comment (the remainder of) a line by using `#`. This helps to document the table:  
+```ruby
+specify_each(<<-TABLE) do |arg1, arg2, result|
+  # | arg1 (never negative) | arg2 | +  |
+    | 1                     |   2  | 3  |
+    | 10                    |   2  | 12 | # <= important edge-case
+TABLE
+  expect(...)
+end
+```
+
+### Various
+
+You can escape the pipe character (`|`) by prefixing it with `\\`:
+```
+| This table has one cell with a \\| |
+```
 
 ## Installation
 
