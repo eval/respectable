@@ -28,6 +28,12 @@ module Respectable
         IT
       end
     end
+
+    def each_row(table, **options, &block)
+      RSpec.deprecate(:each_row, replacement: :specify_each)
+
+      specify_each(table, **options, &block)
+    end
   end
 
   module Util
