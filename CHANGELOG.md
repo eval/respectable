@@ -1,8 +1,14 @@
 ## unreleased
 
-### Fixed/Added/Deprecated/Removed
+### Added/Changed/Fixed/Deprecated/Removed
 
- * ...
+## 0.3.1 / 2016-11-07
+
+### Changed
+
+ * the default description is now of the form:
+
+    `yields <result> for col1: <cell1>, col2: <cell2>`
 
 ## 0.3.0 / 2016-10-26
 
