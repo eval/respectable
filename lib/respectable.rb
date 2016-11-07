@@ -39,7 +39,7 @@ module Respectable
   module Util
     def self.desc_template(block_params)
       *desc_args, desc_result = *block_params.map(&:last)
-      desc_args.map {|arg| "yields %{#{desc_result}} for " + "#{arg}: %{#{arg}}" }.join(', ')
+      "yields %{#{desc_result}} for " + desc_args.map {|arg| "#{arg}: %{#{arg}}" }.join(', ')
     end
 
     def self.table_data(table)
