@@ -1,4 +1,5 @@
 require 'respectable/version'
+require 'method_source'
 
 module Respectable
   def self.included(base)
