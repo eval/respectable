@@ -13,16 +13,18 @@ module Respectable
     def specify_each(table, **options, &block)
       desc_template = options.has_key?(:desc) ? options[:desc] : Util.desc_template(block.parameters)
 
-      define_method(:specify_each) do |*, &block|
-        block.call(*@args) if @args
+      define_method(:specify_each) do |*, &innerblock|
+        innerblock.call(*@args) if @args
       end
+
+      @description = ""
 
       Util.table_data(table).each do |row|
         # TODO: can we use raw row-value? (for outline)
         desc_data = Hash[block.parameters.map(&:last).zip(row.map(&:inspect))]
-        description = desc_template % desc_data if desc_template
+        @description = desc_template % desc_data if desc_template
         instance_eval(<<-IT, *block.source_location)
-          it(description) do
+          it(@description) do
             @args = Util.eval_row_items(row, binding)
             eval(block.source, binding, *block.source_location)
           end

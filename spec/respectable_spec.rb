@@ -10,7 +10,7 @@ describe Respectable do
 | item1 | item 2 |
 TABLE
 
-      expect(col1).to match /item1/
+      expect(col1).to match(/item1/)
     end
   end
 
@@ -18,7 +18,7 @@ TABLE
 | item1 | item 2 |
 TABLE
 
-    expect(col1).to match /item1/
+    expect(col1).to match(/item1/)
   end
 
   describe 'strips whitespace around a value' do
@@ -75,7 +75,7 @@ TABLE
       | col1 |
       TABLE
 
-      expect(col1).to match /col1/
+      expect(col1).to match(/col1/)
     end
   end
 
